@@ -18,3 +18,12 @@ function renderBooks() {
   )
   elBookList.innerHTML = strHtmls.join('')
 }
+
+function onRemoveBook(ev, bookId) {
+  ev.stopPropagation()
+  //Model
+  removeBook(bookId)
+
+  //DOM
+  renderBooks()
+}
