@@ -4,20 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="css/todos.css" /> -->
-    <title>todos</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Chapter One</title>
   </head>
   <body onload="onInit()">
     <header>
-      <h1>Online Book Store</h1>
-
-      <section class="filter">
-        <select onchange="onFilterBy(this)">
-          <option value="">All</option>
-          <option value="done">Done</option>
-          <option value="active">Active</option>
-        </select>
-      </section>
+      <h1>Chapter One - Online Book Store</h1>
+      <form onchange="onFilterBy(event)" class="search-book">
+        <input type="text" placeholder="Insert name to filter" />
+        <button>Search</button>
+      </form>
 
       <form onsubmit="onAddBook(event)" class="add-book">
         <input type="text" placeholder="Insert new book" />
