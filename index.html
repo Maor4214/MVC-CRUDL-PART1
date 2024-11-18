@@ -9,27 +9,109 @@
   </head>
   <body onload="onInit()">
     <header>
-      <h1>Chapter One - Online Book Store</h1>
-      <form onchange="onFilterBy(event)" class="search-book">
-        <input type="text" placeholder="Insert name to filter" />
-        <button>Search</button>
-      </form>
+      <div class="container">
+        <h1>Chapter One - Online Book Store</h1>
+        <div class="controls">
+          <fieldset class="radio-group">
+            <h2>Display:</h2>
+            <label>
+              <input type="radio" id="list" name="display" value="list" onchange="switchDesplay('list')" checked />
+              List
+            </label>
+            <label>
+              <input type="radio" id="card" name="display" value="card" onchange="switchDesplay('card')" />
+              Card
+            </label>
+          </fieldset>
+      
+          <fieldset class="radio-group">
+            <h2>Sort By:</h2>
+            <select class="sort-field" onchange="onSetSortBy()">
+              <option value="">Select Sorting</option>
+              <option value="title">Title</option>
+              <option value="maxRating">Rating</option>
+              <option value="maxPrice">Price</option>
+            </select>
+            <label>
+              <input type="radio" id="ascending" name="sort" value="ascending" onchange="onSetSortBy(1)"/>
+              Ascending
+            </label>
+            <label>
+              <input type="radio" id="descending" name="sort" value="descending" onchange="onSetSortBy(-1)"  />
+              Descending
+            </label>
+          </fieldset>
+      
+          <label class="slider">
+            Min Rating:
+            <input class="min-rating" type="range" min="1" max="5" value="1"
+              onchange="this.title=this.value;onSetFilterByRating({minRating: +this.value})" />
+          </label>
+      
+          <form onsubmit="onFilterBy(event)" class="search-book">
+            <input type="text" placeholder="Search a Book" oninput="onFilterBy(event)" />
+            <button type="submit">Search</button>
+          </form>
+          <button onclick="onAddBook(event)">Add a new Book</button>
+        </div>
+      </div>
 
-      <form onsubmit="onAddBook(event)" class="add-book">
-        <input type="text" placeholder="Insert new book" />
-        <button>Add</button>
-      </form>
+
+      <div class="page-features">
+        <button onclick="onSwitchPage(-1)">Previous Page</button>
+        <button onclick="onSwitchPage(1)">Next Page</button>
+      </div>
+
     </header>
 
-    <ul class="book-list"></ul>
+    <table class="book-list-modal">
+      <thead class="titles">
+        <th>Title</th>
+        <th>Price</th>
+        <th>Author</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-    <dialog class="modal">
-      <form method="dialog">
-        <pre></pre>
-        <button onclick="onCloseModal()">Close</button>
+    <div class="book-card-modal hide">
+    </div>
+
+
+    <dialog class="book-modal">
+      <form onsubmit="onSaveBook()" method="dialog">
+      <div class="book-changes">
+          <input class="book-title" type="text" placeholder="Insert Book Name"/>
+          <input class="book-price" type="text" placeholder="Insert Book Price"/>
+          <input class="book-author" type="text" placeholder="Insert Book Author"/>
+          <input class="book-url" type="text" placeholder="Insert Book URL Image"/>
+      </div>
+        <button type="button" onclick="onCloseModal('.book-modal')">Close</button>
+        <button>Save</button>
       </form>
     </dialog>
 
+    <dialog class="book-details">
+      <form method="dialog">
+      <div class="modal-content">
+      <h3></h3>
+      <img src="" alt="Book cover">
+      <pre class="book-text"></pre>
+      <div class="book-id hide"></div>
+      <div>Rating:</div>
+      <select class="rating" name="rating" id="rating" onchange="onChangeRating()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      </div>
+        <button class="close-button" onclick="onCloseModal('.book-details')">Close</button>
+      </form>
+    </dialog>
+  
     <footer>
       <p>Coffeerights 2024</p>
 
@@ -38,5 +120,12 @@
     <script src="js/services/book-store.service.js"></script>
 
     <script src="js/book-store.controller.js"></script>
+  
   </body>
 </html>
+
+
+
+
+
+
